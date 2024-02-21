@@ -12,6 +12,7 @@ def get_gps_info(image_path):
         for tag, value in exif_data.items():
             tag_name = TAGS.get(tag, tag)
             if tag_name == 'GPSInfo':
+                print(value)
                 return value
 
     return None
@@ -48,14 +49,14 @@ def _convert_to_dms(coordinate):
     return dms
 
 if __name__ == '__main__':
-    image_path = 'C:\projects\img_enhance\IMG\DJI_0001.JPG'
-    wait_image_path = 'C:\projects\yolov8\datasets\solar\images\Undistort_IMGDJI_0001.JPG'
+    image_path = 'D:\\old.JPG'
 
     gps_info = get_gps_info(image_path)
     #                      经度          纬度        高度
     print("图片的GPS信息：", gps_info[2],gps_info[4],gps_info[6])
-
+    gps_info[2] = (11.0, 10.0, 7.76)
+    gps_info[4] = (8.0, 28.0, 32.31)
     gps_altitude = int(gps_info[6]*1000)
 
-    write_gps_info(wait_image_path,gps_info[2],gps_info[4],gps_altitude)
-    print("{} 图片写入完成".format(wait_image_path))
+    write_gps_info(image_path,gps_info[2],gps_info[4],gps_altitude)
+    print("{} 图片写入完成".format(image_path))
