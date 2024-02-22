@@ -26,6 +26,7 @@ def write_gps_info(image_path, gps_longitude,gps_latitude, gps_altitude):
     exif_dict = piexif.load(image.info['exif'])
     exif_dict['GPS'][piexif.GPSIFD.GPSLatitude] = _convert_to_dms(gps_longitude)
     exif_dict['GPS'][piexif.GPSIFD.GPSLongitude] = _convert_to_dms(gps_latitude)
+    exif_dict['GPS'][piexif.GPSIFD.GPSAltitude] = _convert_to_dms(gps_altitude)
     
 
     # # 将修改后的Exif数据重新写入图片
