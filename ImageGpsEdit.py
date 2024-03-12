@@ -8,7 +8,7 @@ import pickle
 def get_gps_info(image_path):
     image = Image.open(image_path)
     exif_data = image._getexif()
-    print(exif_data)
+    # print(exif_data)
     if exif_data is not None:
         for tag, value in exif_data.items():
             tag_name = TAGS.get(tag, tag)
@@ -53,16 +53,16 @@ def decimal_to_dms(decimal):
     return (degree,minute,second)
 
 if __name__ == '__main__':
-    image_path = 'D:\\old.JPG'
+    image_path = 'D:\\IMG_0181.jpeg'
 
     gps_info = get_gps_info(image_path)
     #                      纬度          经度        高度
     print("原GPS信息：", gps_info[2],gps_info[4],gps_info[6])
     
     # 自定义纬度
-    longEdit = 39.11
+    longEdit = 36.061718
     # 自定义经度
-    latEdit = 120.22
+    latEdit = 120.30979099999999
     # 自定义高度
     # alEdit = 66
     alEdit =gps_info[6] #取原有高度
@@ -70,8 +70,11 @@ if __name__ == '__main__':
     gps_info[2] = decimal_to_dms(longEdit)
     gps_info[4] = decimal_to_dms(latEdit)
     
-    # gps_info[2] = (1.0, 10.0, 7.76)
-    # gps_info[4] = (4.0, 28.0, 32.31)
+    print('修改后的坐标信息：')
+    print(gps_info[2])
+    print(gps_info[4])
+    gps_info[2] = (36.0, 3.0, 42.199999999)
+    gps_info[4] = (120.0, 18.0, 35.59)
     gps_altitude = int(alEdit*1000)
     
     write_gps_info(image_path,gps_info[2],gps_info[4],gps_altitude)
