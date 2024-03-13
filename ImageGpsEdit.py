@@ -52,17 +52,24 @@ def decimal_to_dms(decimal):
     
     return (degree,minute,second)
 
+# dms转十进制
+def dms_to_decimal(degree,minute,second):
+    decimal = degree + minute/60 + second/60/60
+    return decimal
+
 if __name__ == '__main__':
-    image_path = 'D:\\IMG_0181.jpeg'
+    image_path = 'D:\\IMG_0400.jpeg'
 
     gps_info = get_gps_info(image_path)
-    #                      纬度          经度        高度
-    print("原GPS信息：", gps_info[2],gps_info[4],gps_info[6])
-    
+    #                      纬度               经度             高度
+    print("原GPS信息：\n", gps_info[2],"\n",gps_info[4],"\n",gps_info[6])
+    print("十进制:")
+    print(dms_to_decimal(float(gps_info[2][0]),float(gps_info[2][1]),float(gps_info[2][2])))
+    print(dms_to_decimal(float(gps_info[4][0]),float(gps_info[4][1]),float(gps_info[4][2])))
     # 自定义纬度
-    longEdit = 36.061718
+    longEdit = 36.06173313512732
     # 自定义经度
-    latEdit = 120.30979099999999
+    latEdit = 120.30988986722008
     # 自定义高度
     # alEdit = 66
     alEdit =gps_info[6] #取原有高度
@@ -73,9 +80,12 @@ if __name__ == '__main__':
     print('修改后的坐标信息：')
     print(gps_info[2])
     print(gps_info[4])
-    gps_info[2] = (36.0, 3.0, 42.199999999)
-    gps_info[4] = (120.0, 18.0, 35.59)
+    print("十进制:")
+    print(longEdit)
+    print(latEdit)
+    # gps_info[2] = (36.0, 3.0, 42.199999999)
+    # gps_info[4] = (120.0, 18.0, 35.59)
     gps_altitude = int(alEdit*1000)
     
-    write_gps_info(image_path,gps_info[2],gps_info[4],gps_altitude)
+    # write_gps_info(image_path,gps_info[2],gps_info[4],gps_altitude)
     print("{} 图片写入完成".format(image_path))
