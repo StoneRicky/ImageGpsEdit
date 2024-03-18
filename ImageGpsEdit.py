@@ -67,9 +67,9 @@ if __name__ == '__main__':
     print(dms_to_decimal(float(gps_info[4][0]),float(gps_info[4][1]),float(gps_info[4][2])))
     print(dms_to_decimal(float(gps_info[2][0]),float(gps_info[2][1]),float(gps_info[2][2])))
     # 自定义纬度
-    latEdit = 32.30829198658468
+    latEdit = 30.6321192
     # 自定义经度度
-    longEdit = 111.06020195446665
+    longEdit = 104.0522413
     
     # 自定义高度
     # alEdit = 66
@@ -88,5 +88,5 @@ if __name__ == '__main__':
     # gps_info[4] = (120.0, 18.0, 35.59)
     gps_altitude = int(alEdit*1000)
     
-    write_gps_info(image_path,gps_info[2],gps_info[4],gps_altitude)
+    # write_gps_info(image_path,gps_info[2],gps_info[4],gps_altitude)
     print("{} 图片写入完成".format(image_path))
