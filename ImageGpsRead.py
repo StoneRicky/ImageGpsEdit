@@ -6,7 +6,7 @@ from fractions import Fraction
 def get_gps_info(image_path):
     image = Image.open(image_path)
     exif_data = image._getexif()
-    # print(exif_data)
+    print(exif_data)
     if exif_data is not None:
         for tag, value in exif_data.items():
             tag_name = TAGS.get(tag, tag)
@@ -24,7 +24,7 @@ def dms_to_decimal(degree,minute,second):
 
 if __name__ == '__main__':
     
-    image_path = 'D:\\IMG_3478.HEIC'
+    image_path = 'D:\\IMG_0384.jpeg'
 
     gps_info = get_gps_info(image_path)
     

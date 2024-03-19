@@ -20,9 +20,6 @@ def get_gps_info(image_path):
 
 # 向文件中写入GPS信息   path、 纬度 、经度 、 高度
 def write_gps_info(image_path, gps_latitude,gps_longitude, gps_altitude):
-    print(gps_latitude)
-    print(gps_longitude)
-    print(gps_altitude)
     # 打开图片
     image = Image.open(image_path)
     # 修改GPS信息
@@ -36,6 +33,8 @@ def write_gps_info(image_path, gps_latitude,gps_longitude, gps_altitude):
     # print(exif_dict)
     exif_bytes = piexif.dump(exif_dict)
     image.save(image_path, "jpeg", exif=exif_bytes)
+    
+    print("{} 图片写入完成".format(image_path))
 
 def _convert_to_dms(coordinate):
     degrees = int(coordinate[0])
@@ -88,5 +87,4 @@ if __name__ == '__main__':
     # gps_info[4] = (120.0, 18.0, 35.59)
     gps_altitude = int(alEdit*1000)
     
-    # write_gps_info(image_path,gps_info[2],gps_info[4],gps_altitude)
-    print("{} 图片写入完成".format(image_path))
+    write_gps_info(image_path,gps_info[2],gps_info[4],gps_altitude)
