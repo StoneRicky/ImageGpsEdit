@@ -19,10 +19,10 @@ def get_gps_info(image_path):
     return None
 
 # 向文件中写入GPS信息   path、 纬度 、经度 、 高度
-def write_gps_info(source_image_path,new_image_path, gps_latitude,gps_longitude, gps_altitude):
+def write_gps_info(source_image_path,target_image_path, gps_latitude,gps_longitude, gps_altitude):
     # 打开图片
     image_source = Image.open(source_image_path)
-    image_new = Image.open(new_image_path)
+    image_new = Image.open(target_image_path)
     # 修改GPS信息
     exif_dict = piexif.load(image_source.info['exif'])
     exif_dict['GPS'][piexif.GPSIFD.GPSLatitude] = _convert_to_dms(gps_latitude)
@@ -33,9 +33,9 @@ def write_gps_info(source_image_path,new_image_path, gps_latitude,gps_longitude,
     # # 将修改后的Exif数据重新写入图片
     # print(exif_dict)
     exif_bytes = piexif.dump(exif_dict)
-    image_new.save(new_image_path, "jpeg", exif=exif_bytes)
+    image_new.save(target_image_path, "jpeg", exif=exif_bytes)
     
-    print("{} 图片写入完成".format(new_image_path))
+    print("{} 图片写入完成".format(target_image_path))
 
 def _convert_to_dms(coordinate):
     degrees = int(coordinate[0])
@@ -58,19 +58,21 @@ def dms_to_decimal(degree,minute,second):
     return decimal
 
 if __name__ == '__main__':
-    source_image_path = 'D:\\IMG_4592.jpeg'
-    new_image_path = 'D:\\IMG_0982.jpeg'
+    # 源文件
+    source_image_path = 'D:\\IMG_9605.jpeg'
+    # 目标文件
+    target_image_path = 'D:\\IMG_6293.jpeg'
 
     gps_info = get_gps_info(source_image_path)
     #                      纬度               经度             高度
     print("源文件GPS信息：\n", gps_info[2],"\n",gps_info[4],"\n",gps_info[6])
     print("十进制:")
-    print(dms_to_decimal(float(gps_info[4][0]),float(gps_info[4][1]),float(gps_info[4][2])))
     print(dms_to_decimal(float(gps_info[2][0]),float(gps_info[2][1]),float(gps_info[2][2])))
+    print(dms_to_decimal(float(gps_info[4][0]),float(gps_info[4][1]),float(gps_info[4][2])))
     # 自定义纬度
-    latEdit = 36.07647820290767
+    latEdit = 36.09903032536601
     # 自定义经度度
-    longEdit = 120.36961331963539
+    longEdit = 120.38393296301365
      
     # 自定义高度
     # alEdit = 66
@@ -89,4 +91,4 @@ if __name__ == '__main__':
     # gps_info[4] = (120.0, 18.0, 35.59)
     gps_altitude = int(alEdit*1000)
     
-    write_gps_info(source_image_path,new_image_path,gps_info[2],gps_info[4],gps_altitude)
+    write_gps_info(source_image_path,target_image_path,gps_info[2],gps_info[4],gps_altitude)
