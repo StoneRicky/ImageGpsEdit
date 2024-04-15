@@ -19,23 +19,23 @@ def get_gps_info(image_path):
     return None
 
 # 向文件中写入GPS信息   path、 纬度 、经度 、 高度
-def write_gps_info(source_image_path,target_image_path, gps_latitude,gps_longitude, gps_altitude):
+def write_gps_info(image_path, gps_latitude,gps_longitude, gps_altitude):
     # 打开图片
-    image_source = Image.open(source_image_path)
-    image_new = Image.open(target_image_path)
+    image = Image.open(image_path)
     # 修改GPS信息
-    exif_dict = piexif.load(image_source.info['exif'])
+    exif_dict = piexif.load(image.info['exif'])
     exif_dict['GPS'][piexif.GPSIFD.GPSLatitude] = _convert_to_dms(gps_latitude)
     exif_dict['GPS'][piexif.GPSIFD.GPSLongitude] = _convert_to_dms(gps_longitude)
-    exif_dict['GPS'][piexif.GPSIFD.GPSAltitude] = (gps_altitude,1000)
+    # 高度不更改
+    # exif_dict['GPS'][piexif.GPSIFD.GPSAltitude] = (gps_altitude,1000)
     
 
     # # 将修改后的Exif数据重新写入图片
     # print(exif_dict)
     exif_bytes = piexif.dump(exif_dict)
-    image_new.save(target_image_path, "jpeg", exif=exif_bytes)
+    image.save(image_path,quality = 90,exif=exif_bytes)
     
-    print("{} 图片写入完成".format(target_image_path))
+    print("{} 图片写入完成".format(image_path))
 
 def _convert_to_dms(coordinate):
     degrees = int(coordinate[0])
@@ -48,7 +48,7 @@ def _convert_to_dms(coordinate):
 def decimal_to_dms(decimal):
     degree = int(decimal) # 获取度
     minute = int((decimal - degree) * 60) # 获取分钟
-    second = round(((decimal - degree) * 3600 % 60), 2) # 保留两位小数并四舍五入获取秒
+    second = (decimal - degree) * 3600 % 60 # 保留两位小数并四舍五入获取秒
     
     return (degree,minute,second)
 
@@ -58,21 +58,19 @@ def dms_to_decimal(degree,minute,second):
     return decimal
 
 if __name__ == '__main__':
-    # 源文件
-    source_image_path = 'D:\\IMG_9605.jpeg'
-    # 目标文件
-    target_image_path = 'D:\\IMG_6293.jpeg'
+    # 文件
+    image_path = 'C:\\IMG_5062.jpeg'
 
-    gps_info = get_gps_info(source_image_path)
+    gps_info = get_gps_info(image_path)
     #                      纬度               经度             高度
     print("源文件GPS信息：\n", gps_info[2],"\n",gps_info[4],"\n",gps_info[6])
     print("十进制:")
     print(dms_to_decimal(float(gps_info[2][0]),float(gps_info[2][1]),float(gps_info[2][2])))
     print(dms_to_decimal(float(gps_info[4][0]),float(gps_info[4][1]),float(gps_info[4][2])))
     # 自定义纬度
-    latEdit = 36.09903032536601
+    latEdit = 30.632041996370923
     # 自定义经度度
-    longEdit = 120.38393296301365
+    longEdit = 104.06307466328144
      
     # 自定义高度
     # alEdit = 66
@@ -90,5 +88,4 @@ if __name__ == '__main__':
     # gps_info[2] = (36.0, 3.0, 42.199999999)
     # gps_info[4] = (120.0, 18.0, 35.59)
     gps_altitude = int(alEdit*1000)
-    
-    write_gps_info(source_image_path,target_image_path,gps_info[2],gps_info[4],gps_altitude)
+    write_gps_info(image_path,gps_info[2],gps_info[4],gps_altitude)
