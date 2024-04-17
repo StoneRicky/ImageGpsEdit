@@ -33,7 +33,7 @@ def write_gps_info(source_image_path,target_image_path, gps_latitude,gps_longitu
     # # 将修改后的Exif数据重新写入图片
     # print(exif_dict)
     exif_bytes = piexif.dump(exif_dict)
-    image_new.save(target_image_path, "jpeg", exif=exif_bytes)
+    image_new.save(target_image_path,"jpeg", quality = 90, exif = exif_bytes)
     
     print("{} 图片写入完成".format(target_image_path))
 
