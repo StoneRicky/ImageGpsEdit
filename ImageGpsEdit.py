@@ -59,7 +59,7 @@ def dms_to_decimal(degree,minute,second):
 
 if __name__ == '__main__':
     # 文件
-    image_path = 'C:\\IMG_5062.jpeg'
+    image_path = 'D:\\IMG_0981.jpeg'
 
     gps_info = get_gps_info(image_path)
     #                      纬度               经度             高度
@@ -68,9 +68,9 @@ if __name__ == '__main__':
     print(dms_to_decimal(float(gps_info[2][0]),float(gps_info[2][1]),float(gps_info[2][2])))
     print(dms_to_decimal(float(gps_info[4][0]),float(gps_info[4][1]),float(gps_info[4][2])))
     # 自定义纬度
-    latEdit = 30.632041996370923
+    latEdit = 36.06120912102425
     # 自定义经度度
-    longEdit = 104.06307466328144
+    longEdit = 120.30783668160439
      
     # 自定义高度
     # alEdit = 66
@@ -83,8 +83,7 @@ if __name__ == '__main__':
     print(gps_info[2])
     print(gps_info[4])
     print("十进制:")
-    print(latEdit)
-    print(longEdit)
+    print(latEdit,',',longEdit)
     # gps_info[2] = (36.0, 3.0, 42.199999999)
     # gps_info[4] = (120.0, 18.0, 35.59)
     gps_altitude = int(alEdit*1000)
