@@ -1,8 +1,6 @@
 from PIL import Image
 from PIL.ExifTags import TAGS
 import piexif
-from fractions import Fraction
-import pickle
 
 # 获取图片的GPS信息
 def get_gps_info(image_path):
@@ -48,7 +46,7 @@ def _convert_to_dms(coordinate):
 def decimal_to_dms(decimal):
     degree = int(decimal) # 获取度
     minute = int((decimal - degree) * 60) # 获取分钟
-    second = (decimal - degree) * 3600 % 60 # 保留两位小数并四舍五入获取秒
+    second = (decimal - degree) * 3600 % 60 # 保留两位小数（为了准确性，暂不四舍五入）
     
     return (degree,minute,second)
 
@@ -59,7 +57,7 @@ def dms_to_decimal(degree,minute,second):
 
 if __name__ == '__main__':
     # 文件
-    image_path = 'D:\\IMG_0981.jpeg'
+    image_path = 'D:\\IMG_5060.jpeg'
 
     gps_info = get_gps_info(image_path)
     #                      纬度               经度             高度
@@ -68,9 +66,9 @@ if __name__ == '__main__':
     print(dms_to_decimal(float(gps_info[2][0]),float(gps_info[2][1]),float(gps_info[2][2])))
     print(dms_to_decimal(float(gps_info[4][0]),float(gps_info[4][1]),float(gps_info[4][2])))
     # 自定义纬度
-    latEdit = 36.06120912102425
+    latEdit = 30.632045651757736
     # 自定义经度度
-    longEdit = 120.30783668160439
+    longEdit = 104.06306964563989
      
     # 自定义高度
     # alEdit = 66
