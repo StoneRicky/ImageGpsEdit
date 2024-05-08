@@ -1,6 +1,3 @@
-from PIL import Image
-from PIL.ExifTags import TAGS
-from fractions import Fraction
 import exifread
 # 获取图片的GPS信息
 def get_gps_info(image_path):
