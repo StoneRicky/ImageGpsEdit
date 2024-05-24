@@ -24,12 +24,11 @@ def dms_to_decimal(degree,minute,second):
 
 if __name__ == '__main__':
     
-    image_path = 'D:\\IMG_0384.jpeg'
+    image_path = 'D:\\IMG_1653.jpeg'
 
     gps_info = get_gps_info(image_path)
     
         #                      纬度               经度             高度
     print("GPS信息：\n", gps_info[2],"\n",gps_info[4],"\n",gps_info[6])
     print("十进制:")
-    print(dms_to_decimal(float(gps_info[2][0]),float(gps_info[2][1]),float(gps_info[2][2])))
-    print(dms_to_decimal(float(gps_info[4][0]),float(gps_info[4][1]),float(gps_info[4][2])))
+    print(dms_to_decimal(float(gps_info[2][0]),float(gps_info[2][1]),float(gps_info[2][2])),",",dms_to_decimal(float(gps_info[4][0]),float(gps_info[4][1]),float(gps_info[4][2])))
