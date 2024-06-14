@@ -13,7 +13,7 @@ def dms_to_decimal(degree,minute,second):
 
 if __name__ == '__main__':
     
-    image_path = 'D:\\IMG_3478.HEIC'
+    image_path = 'D:\\IMG_1653.HEIC'
 
     gps_info = get_gps_info(image_path)
     
