@@ -24,7 +24,7 @@ def dms_to_decimal(degree,minute,second):
 
 if __name__ == '__main__':
     
-    image_path = 'D:\\IMG_2456.jpeg'
+    image_path = 'D:\\IMG_2687.jpeg'
 
     gps_info = get_gps_info(image_path)
     
